@@ -1,10 +1,23 @@
 package com.bank.bankdigital.model;
 
-public class enderecoModel {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+
+@Entity
+public class EnderecoModel {
     
-    private Long id;
-    private String rua;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long idEndereco;
+     
+    @Column(nullable = false)
     private String cep;
+    private String rua;
     private int  numeroCasa;
     private String complemento;
     private String logradouro;
@@ -13,11 +26,21 @@ public class enderecoModel {
     private String estado;
     private String pais;
 
-    public Long getId() {
-        return id;
+    @OneToOne()
+    @JoinColumn(name = "idTitular")
+    private TitularModel idTitular;
+
+    public TitularModel getIdTitular() {
+        return idTitular;
     }
-    public void setId(Long id) {
-        this.id = id;
+    public void setIdTitular(TitularModel idTitular) {
+        this.idTitular = idTitular;
+    }
+    public Long getIdEndereco() {
+        return idEndereco;
+    }
+    public void setIdEndereco(Long idEndereco) {
+        this.idEndereco = idEndereco;
     }
     public String getRua() {
         return rua;
