@@ -12,47 +12,48 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bank.bankdigital.model.ContaBancariaModel;
-import com.bank.bankdigital.service.ContaBancariaService;
+import com.bank.bankdigital.model.EnderecoModel;
+import com.bank.bankdigital.service.EnderecoService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+
 @RestController
-@RequestMapping("/api/ContaBancaria")
-@Api(value = "CONTA BANCARIA")
-public class ContaBancariaController {
-    
+@RequestMapping("/api/Enderecos")
+@Api(value = "ENDERECO")
+public class EnderecoController {
+
     @Autowired
-    private ContaBancariaService contaBancariaServiceAction;
+    private EnderecoService enderecoServiceAction;
 
     @GetMapping
     @ApiOperation(value = "RETORNA TODOS ")
-    public ResponseEntity<List<ContaBancariaModel>> obterTodos(){
-        return ResponseEntity.ok(contaBancariaServiceAction.obterTodos());
+    public ResponseEntity<List<EnderecoModel>> obterTodos(){
+        return ResponseEntity.ok(enderecoServiceAction.obterTodos());
     }
 
     @GetMapping("{/id}")
     @ApiOperation(value = "RETORNA UM PELO ID")
-    public ResponseEntity<ContaBancariaModel> obterId(@PathVariable Long id){
-        return ResponseEntity.ok(contaBancariaServiceAction.obterId(id));
+    public ResponseEntity<EnderecoModel> obterId(@PathVariable Long id){
+        return ResponseEntity.ok(enderecoServiceAction.obterId(id));
     }
 
     @PostMapping()
     @ApiOperation(value = "ADICIONA")
-    public ResponseEntity<ContaBancariaModel> adicionar(@RequestBody ContaBancariaModel contaBancaria){
-        return ResponseEntity.status(201).body(contaBancariaServiceAction.adicionar(contaBancaria));
+    public ResponseEntity<EnderecoModel> adicionar(@RequestBody EnderecoModel endereco){
+        return ResponseEntity.status(201).body(enderecoServiceAction.adicionar(endereco));
     }
 
     @PostMapping("{/id}")
     @ApiOperation(value = "ATUALIZA PELO ID")
-    public ResponseEntity<ContaBancariaModel> atualizar(@RequestBody ContaBancariaModel contaBancaria, @PathVariable Long id){
-        return ResponseEntity.status(201).body(contaBancariaServiceAction.atualizar(contaBancaria, id));
+    public ResponseEntity<EnderecoModel> atualizar(@RequestBody EnderecoModel endereco, @PathVariable Long id){
+        return ResponseEntity.status(201).body(enderecoServiceAction.atualizar(endereco, id));
     }
 
     @DeleteMapping("{/id}")
     @ApiOperation(value = "DELETA PELO ID")
     public ResponseEntity<?> delete(@PathVariable Long id){
-        contaBancariaServiceAction.deletar(id);
+        enderecoServiceAction.deletar(id);
         return ResponseEntity.status(204).build();
     }
     

@@ -55,6 +55,7 @@ public class TitularModel {
         this.contas.add(conta);
     }
     
+
     public Long getIdTitular() {
         return idTitular;
     }
