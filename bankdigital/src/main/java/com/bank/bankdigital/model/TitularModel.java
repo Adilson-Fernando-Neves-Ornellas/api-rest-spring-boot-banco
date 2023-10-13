@@ -43,6 +43,10 @@ public class TitularModel {
     private List<ContaBancariaModel> contas;
     
     
+    public TitularModel() {
+        
+    }
+
     public TitularModel(Long id, String nome, String email, String telefone, Date dataNasc, String cpfCnpj, EnderecoModel enderecoPrincipal, ContaBancariaModel conta) {
         this.idTitular = id;
         this.nome = nome;

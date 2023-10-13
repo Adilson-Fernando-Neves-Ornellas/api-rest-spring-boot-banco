@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 public class EnderecoModel {
     
@@ -27,7 +29,8 @@ public class EnderecoModel {
     private String pais;
 
     @OneToOne()
-    @JoinColumn(name = "idTitular")
+    @JoinColumn(name = "idTitular",nullable = false )
+    @JsonBackReference
     private TitularModel idTitular;
 
     public TitularModel getIdTitular() {

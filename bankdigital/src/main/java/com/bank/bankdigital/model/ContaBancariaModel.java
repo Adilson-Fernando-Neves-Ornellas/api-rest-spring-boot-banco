@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 public class ContaBancariaModel {
     
@@ -30,7 +32,8 @@ public class ContaBancariaModel {
     private Date dataCadastro;
 
     @ManyToOne()
-    @JoinColumn(name = "idTitular")
+    @JoinColumn(name = "idTitular", nullable = false)
+    @JsonBackReference
     private TitularModel idTitular;
 
     public ContaBancariaModel(long id, String agenciaBanco, String numeroContaCorrente, double saldoContaCorrente) {
