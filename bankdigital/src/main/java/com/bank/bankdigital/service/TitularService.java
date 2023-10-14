@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import javax.transaction.Transactional;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -59,8 +60,9 @@ public class TitularService {
             contaBancariaServiceAction.adicionar(contas.get(i));
         }
       }
-      return   titular ;
+      titular.setContas(contas);
 
+      return   titular ;
     }
 
     public TitularModel atualizar (TitularModel titular, Long id){

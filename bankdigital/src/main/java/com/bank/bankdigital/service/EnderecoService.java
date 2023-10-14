@@ -28,7 +28,7 @@ public class EnderecoService {
     }
 
     public EnderecoModel adicionar(EnderecoModel endereco){
-        endereco.setIdEndereco( (long) 0);
+        // endereco.setIdEndereco( (long) 0);
      return EnderecoRepositoryAction.save(endereco);
     }
 

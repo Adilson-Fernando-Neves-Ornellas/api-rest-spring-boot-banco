@@ -12,6 +12,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
 @Entity
 public class TitularModel {
     
@@ -36,12 +39,12 @@ public class TitularModel {
 
 
     @OneToOne(mappedBy = "idTitular")
+    // @Cascade(value = CascadeType.ALL)
     private EnderecoModel enderecoPrincipal;
     
-
     @OneToMany(mappedBy = "idTitular")
+    // @Cascade(value = CascadeType.ALL)
     private List<ContaBancariaModel> contas;
-    
     
     public TitularModel() {
         
