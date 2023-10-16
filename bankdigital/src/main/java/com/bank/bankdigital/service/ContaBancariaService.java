@@ -1,12 +1,18 @@
 package com.bank.bankdigital.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bank.bankdigital.dto.ContaBancariaDtos.ContaBancariaRequestDto;
+import com.bank.bankdigital.dto.ContaBancariaDtos.ContaBancariaResponseDto;
+import com.bank.bankdigital.dto.EnderecoDtos.EnderecoResponseDto;
 import com.bank.bankdigital.model.ContaBancariaModel;
+import com.bank.bankdigital.model.EnderecoModel;
 import com.bank.bankdigital.repository.ContaBancariaRepository;
 
 
@@ -16,27 +22,48 @@ public class ContaBancariaService {
     @Autowired
     private ContaBancariaRepository contaBancariaRepositoryAction;
 
-    public List<ContaBancariaModel> obterTodos(){
-        return contaBancariaRepositoryAction.findAll();
-    }
+    @Autowired
+    private ModelMapper modelMapperAction;
 
-    public ContaBancariaModel obterId(Long id){
-        Optional<ContaBancariaModel> optinal = contaBancariaRepositoryAction.findById(id);
-        if(optinal.isEmpty()){
-            throw new RuntimeException("Id não encontrado: " + id);
+    public List<ContaBancariaResponseDto> obterTodos(){
+        List<ContaBancariaModel> listModel = contaBancariaRepositoryAction.findAll();
+        
+        List<ContaBancariaResponseDto> listResponse = new ArrayList<>();
+
+        for(var i = 0; i < listModel.size(); i++){
+            listResponse.add(modelMapperAction.map(listModel.get(i), ContaBancariaResponseDto.class));
         }
-     return optinal.get();
+
+        return listResponse;
     }
 
-    public ContaBancariaModel adicionar(ContaBancariaModel contaBancaria){
-        contaBancaria.setIdContaBancaria( (long) 0);
-     return contaBancariaRepositoryAction.save(contaBancaria);
+    public ContaBancariaResponseDto obterId(Long id){
+        Optional<ContaBancariaModel> optinal = contaBancariaRepositoryAction.findById(id);
+
+        if(optinal.isEmpty()){
+            throw new RuntimeException("Nenhum registro encontrado para o ID: " + id);
+        }
+        return modelMapperAction.map(optinal.get(), ContaBancariaResponseDto.class);
     }
 
-    public ContaBancariaModel atualizar (ContaBancariaModel contaBancaria, Long id){
+    public ContaBancariaResponseDto adicionar(ContaBancariaRequestDto contaBancariaRequest){
+        
+        ContaBancariaModel contaBancaria = modelMapperAction.map(contaBancariaRequest, ContaBancariaModel.class);
+        contaBancaria.setIdContaBancaria(0);
+        
+        contaBancaria = contaBancariaRepositoryAction.save(contaBancaria);
+        
+        return modelMapperAction.map(contaBancaria, ContaBancariaResponseDto.class); 
+    }
+
+    public ContaBancariaResponseDto atualizar (ContaBancariaRequestDto contaBancariaRequest, Long id){
         obterId(id);
+        ContaBancariaModel contaBancaria = modelMapperAction.map(contaBancariaRequest, ContaBancariaModel.class);
+
         contaBancaria.setIdContaBancaria(id);
-     return contaBancariaRepositoryAction.save(contaBancaria);
+        contaBancaria = contaBancariaRepositoryAction.save(contaBancaria);
+
+        return modelMapperAction.map(contaBancaria, ContaBancariaResponseDto.class);
     }
 
     public void deletar (Long id){

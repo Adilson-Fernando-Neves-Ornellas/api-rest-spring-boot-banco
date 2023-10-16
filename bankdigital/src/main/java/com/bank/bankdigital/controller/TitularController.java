@@ -12,7 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bank.bankdigital.model.TitularModel;
+import com.bank.bankdigital.dto.TitularDtos.TitularRequestDto;
+import com.bank.bankdigital.dto.TitularDtos.TitularResponseDto;
 import com.bank.bankdigital.service.TitularService;
 
 import io.swagger.annotations.Api;
@@ -28,25 +29,25 @@ public class TitularController {
 
     @GetMapping
     @ApiOperation(value = "RETORNA TODOS ")
-    public ResponseEntity<List<TitularModel>> obterTodos(){
+    public ResponseEntity<List<TitularResponseDto>> obterTodos(){
         return ResponseEntity.ok(titularServiceAction.obterTodos());
     }
 
     @GetMapping("/{id}")
     @ApiOperation(value = "RETORNA UM PELO ID")
-    public ResponseEntity<TitularModel> obterId(@PathVariable Long id){
+    public ResponseEntity<TitularResponseDto> obterId(@PathVariable Long id){
         return ResponseEntity.ok(titularServiceAction.obterId(id));
     }
 
     @PostMapping()
     @ApiOperation(value = "ADICIONA")
-    public ResponseEntity<TitularModel> adicionar(@RequestBody TitularModel titular){
+    public ResponseEntity<TitularResponseDto> adicionar(@RequestBody TitularRequestDto titular){
         return ResponseEntity.status(201).body(titularServiceAction.adicionar(titular));
     }
 
     @PutMapping("/{id}")
     @ApiOperation(value = "ATUALIZA PELO ID")
-    public ResponseEntity<TitularModel> atualizar(@RequestBody TitularModel titular, @PathVariable Long id){
+    public ResponseEntity<TitularResponseDto> atualizar(@RequestBody TitularRequestDto titular, @PathVariable Long id){
         return ResponseEntity.status(201).body(titularServiceAction.atualizar(titular, id));
     }
 

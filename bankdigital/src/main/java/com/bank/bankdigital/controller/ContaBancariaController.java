@@ -12,7 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bank.bankdigital.model.ContaBancariaModel;
+import com.bank.bankdigital.dto.ContaBancariaDtos.ContaBancariaRequestDto;
+import com.bank.bankdigital.dto.ContaBancariaDtos.ContaBancariaResponseDto;
 import com.bank.bankdigital.service.ContaBancariaService;
 
 import io.swagger.annotations.Api;
@@ -27,25 +28,25 @@ public class ContaBancariaController {
 
     @GetMapping
     @ApiOperation(value = "RETORNA TODOS ")
-    public ResponseEntity<List<ContaBancariaModel>> obterTodos(){
+    public ResponseEntity<List<ContaBancariaResponseDto>> obterTodos(){
         return ResponseEntity.ok(contaBancariaServiceAction.obterTodos());
     }
 
     @GetMapping("{/id}")
     @ApiOperation(value = "RETORNA UM PELO ID")
-    public ResponseEntity<ContaBancariaModel> obterId(@PathVariable Long id){
+    public ResponseEntity<ContaBancariaResponseDto> obterId(@PathVariable Long id){
         return ResponseEntity.ok(contaBancariaServiceAction.obterId(id));
     }
 
     @PostMapping()
     @ApiOperation(value = "ADICIONA")
-    public ResponseEntity<ContaBancariaModel> adicionar(@RequestBody ContaBancariaModel contaBancaria){
+    public ResponseEntity<ContaBancariaResponseDto> adicionar(@RequestBody ContaBancariaRequestDto contaBancaria){
         return ResponseEntity.status(201).body(contaBancariaServiceAction.adicionar(contaBancaria));
     }
 
     @PostMapping("{/id}")
     @ApiOperation(value = "ATUALIZA PELO ID")
-    public ResponseEntity<ContaBancariaModel> atualizar(@RequestBody ContaBancariaModel contaBancaria, @PathVariable Long id){
+    public ResponseEntity<ContaBancariaResponseDto> atualizar(@RequestBody ContaBancariaRequestDto contaBancaria, @PathVariable Long id){
         return ResponseEntity.status(201).body(contaBancariaServiceAction.atualizar(contaBancaria, id));
     }
 

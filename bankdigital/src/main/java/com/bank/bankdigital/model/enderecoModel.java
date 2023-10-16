@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
+import com.bank.bankdigital.dto.EnderecoDtos.EnderecoRequestDto;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
@@ -19,7 +20,6 @@ public class EnderecoModel {
      
     @Column(nullable = false)
     private String cep;
-    private String rua;
     private int  numeroCasa;
     private String complemento;
     private String logradouro;
@@ -33,6 +33,26 @@ public class EnderecoModel {
     @JsonBackReference
     private TitularModel idTitular;
 
+    
+    //constructors 
+    public EnderecoModel() {
+    }
+    
+
+    // public EnderecoModel(EnderecoRequestDto enderecoRequest) {
+    //     this.idEndereco = 0l;
+    //     this.cep=enderecoRequest.getCep();
+    //     this.numeroCasa=enderecoRequest.getNumeroCasa();
+    //     this.complemento=enderecoRequest.getComplemento();
+    //     this.logradouro=enderecoRequest.getLogradouro();
+    //     this.bairro=enderecoRequest.getBairro();
+    //     this.cidade=enderecoRequest.getCidade();
+    //     this.estado=enderecoRequest.getEstado();
+    //     this.pais=enderecoRequest.getPais();
+    // }
+
+
+    // get e set
     public TitularModel getIdTitular() {
         return idTitular;
     }
@@ -44,12 +64,6 @@ public class EnderecoModel {
     }
     public void setIdEndereco(Long idEndereco) {
         this.idEndereco = idEndereco;
-    }
-    public String getRua() {
-        return rua;
-    }
-    public void setRua(String rua) {
-        this.rua = rua;
     }
     public String getCep() {
         return cep;

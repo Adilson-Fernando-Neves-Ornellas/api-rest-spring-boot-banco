@@ -12,7 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bank.bankdigital.model.EnderecoModel;
+import com.bank.bankdigital.dto.EnderecoDtos.EnderecoRequestDto;
+import com.bank.bankdigital.dto.EnderecoDtos.EnderecoResponseDto;
 import com.bank.bankdigital.service.EnderecoService;
 
 import io.swagger.annotations.Api;
@@ -28,25 +29,25 @@ public class EnderecoController {
 
     @GetMapping
     @ApiOperation(value = "RETORNA TODOS ")
-    public ResponseEntity<List<EnderecoModel>> obterTodos(){
+    public ResponseEntity<List<EnderecoResponseDto>> obterTodos(){
         return ResponseEntity.ok(enderecoServiceAction.obterTodos());
     }
 
     @GetMapping("{/id}")
     @ApiOperation(value = "RETORNA UM PELO ID")
-    public ResponseEntity<EnderecoModel> obterId(@PathVariable Long id){
+    public ResponseEntity<EnderecoResponseDto> obterId(@PathVariable Long id){
         return ResponseEntity.ok(enderecoServiceAction.obterId(id));
     }
 
     @PostMapping()
     @ApiOperation(value = "ADICIONA")
-    public ResponseEntity<EnderecoModel> adicionar(@RequestBody EnderecoModel endereco){
+    public ResponseEntity<EnderecoResponseDto> adicionar(@RequestBody EnderecoRequestDto endereco){
         return ResponseEntity.status(201).body(enderecoServiceAction.adicionar(endereco));
     }
 
     @PostMapping("{/id}")
     @ApiOperation(value = "ATUALIZA PELO ID")
-    public ResponseEntity<EnderecoModel> atualizar(@RequestBody EnderecoModel endereco, @PathVariable Long id){
+    public ResponseEntity<EnderecoResponseDto> atualizar(@RequestBody EnderecoRequestDto endereco, @PathVariable Long id){
         return ResponseEntity.status(201).body(enderecoServiceAction.atualizar(endereco, id));
     }
 

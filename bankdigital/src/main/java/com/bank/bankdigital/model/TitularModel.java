@@ -12,8 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
 
 @Entity
 public class TitularModel {
@@ -46,9 +44,19 @@ public class TitularModel {
     // @Cascade(value = CascadeType.ALL)
     private List<ContaBancariaModel> contas;
     
+    
+        //constructors 
     public TitularModel() {
-        
     }
+    
+    // public TitularModel(TitularRequestDto request) {
+    //     this.idTitular = 0l;
+    //     this.nome = request.getNome();
+    //     this.email = request.getEmail();
+    //     this.telefone=request.getTelefone();
+    //     this.dataNasc=request.getDataNasc();
+    //     this.cpfCnpj=request.getCpfCnpj();
+    // }
 
     public TitularModel(Long id, String nome, String email, String telefone, Date dataNasc, String cpfCnpj, EnderecoModel enderecoPrincipal, ContaBancariaModel conta) {
         this.idTitular = id;
@@ -61,8 +69,9 @@ public class TitularModel {
         this.contas = new ArrayList<ContaBancariaModel>();
         this.contas.add(conta);
     }
-    
 
+
+    // get e set
     public Long getIdTitular() {
         return idTitular;
     }
@@ -110,6 +119,6 @@ public class TitularModel {
     }
     public void setContas(List<ContaBancariaModel> contas) {
         this.contas = contas;
-    }
+    }   
 
 }
